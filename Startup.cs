@@ -25,6 +25,7 @@ namespace LEContents {
 			}
 			if(LoadingState >= 4) {
 				Scene.Set("PDAdvertise");
+				Scene.Set("Title");
 				if(GameCommon.UpdateAvailable) {
 					Scene.Set("OnlineUpdate");
 				}

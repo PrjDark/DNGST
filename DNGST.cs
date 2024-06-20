@@ -258,19 +258,19 @@ namespace LEContents {
 			Temp = (TempW = (TempM = 0));
 			BossMode = (StageCleared = (Specialing = (Reloading = (GameEnd = (FadeOut = (NoDamage = false))))));
 			if(GameCommon.DNGST_GameMode == GameMode.RANDOM_ALL) {
-				Stage = "一期一会のだんごたち ～R～";
+				Stage = "Dango Mix ～R～";
 				StageId = "RANDOM_ALL";
 			}
 			if(GameCommon.DNGST_GameMode == GameMode.RANDOM_SAME) {
-				Stage = "だんごの内乱 ～R～";
+				Stage = "Only 1 Dango ～R～";
 				StageId = "RANDOM_SAME";
 			}
 			if(GameCommon.DNGST_GameMode == GameMode.RANDOM_BURN) {
-				Stage = "焼きすぎだんご ～R～";
+				Stage = "Dango Burnt ～R～";
 				StageId = "RANDOM_BURN";
 			}
 			if(GameCommon.DNGST_GameMode == GameMode.RANDOM_FAST) {
-				Stage = "だんご速射砲 ～R～";
+				Stage = "Dango Cannon ～R～";
 				StageId = "RANDOM_FAST";
 				for(int i = 0; i < Enum.GetNames(typeof(DangoID)).Length; i++) {
 					int num = 2;
@@ -346,12 +346,14 @@ namespace LEContents {
 				BD.Y = (int)(Math.Sin((double)num2 * (double)BD.Count / 50.0) * 120.0) + BD.BaseY;
 			} else if(BD.ID == DangoID.Yellow) {
 				BD.BaseX -= DangoEnemyBulletSpeeds[(int)BD.ID];
-				int num3 = (int)(Math.Sin((double)BD.Count / 100.0 * 3.0) * 100.0);
+				int num3 = 0;
+				num3 = (int)(Math.Sin((double)BD.Count / 100.0 * 3.0) * 100.0);
 				BD.X = (int)(Math.Cos((double)BD.Count / 20.0) * (double)num3) + BD.BaseX;
 				BD.Y = (int)(Math.Sin((double)BD.Count / 20.0) * (double)num3) + BD.BaseY;
 			} else if(BD.ID == DangoID.Black) {
 				BD.BaseX -= DangoEnemyBulletSpeeds[(int)BD.ID];
-				int num4 = 64;
+				int num4 = 0;
+				num4 = 64;
 				BD.X = (int)(Math.Cos((double)BD.Count / 10.0) * (double)num4) + BD.BaseX;
 				BD.Y = (int)(Math.Sin((double)BD.Count / 10.0) * (double)num4) + BD.BaseY;
 			} else if(BD.ID == DangoID.Burn) {
@@ -375,12 +377,14 @@ namespace LEContents {
 				CD.Y = (int)(Math.Sin((double)num2 * (double)CD.Count / 50.0) * 120.0) + CD.BaseY;
 			} else if(CD.ID == DangoID.Yellow) {
 				CD.BaseX -= DangoEnemyMaxSpeeds[(int)CD.ID];
-				int num3 = (int)(Math.Sin((double)CD.Count / 100.0 * 3.0) * 100.0);
+				int num3 = 0;
+				num3 = (int)(Math.Sin((double)CD.Count / 100.0 * 3.0) * 100.0);
 				CD.X = (int)(Math.Cos((double)CD.Count / 20.0) * (double)num3) + CD.BaseX;
 				CD.Y = (int)(Math.Sin((double)CD.Count / 20.0) * (double)num3) + CD.BaseY;
 			} else if(CD.ID == DangoID.Black) {
 				CD.BaseX -= DangoEnemyMaxSpeeds[(int)CD.ID];
-				int num4 = 64;
+				int num4 = 0;
+				num4 = 64;
 				CD.X = (int)(Math.Cos((double)CD.Count / 10.0) * (double)num4) + CD.BaseX;
 				CD.Y = (int)(Math.Sin((double)CD.Count / 10.0) * (double)num4) + CD.BaseY;
 			} else if(CD.ID == DangoID.Burn) {
@@ -967,25 +971,25 @@ namespace LEContents {
 			FramesCount++;
 			AddWaiter--;
 			Timer--;
-			if(!GameEnd) {
-				Effect.Fadein();
+			if(GameEnd) {
+				if(!FadeOut) {
+					GameBGM.Close();
+					BossBGM.Close();
+					if(StageCleared) {
+						ClearSE.Play();
+					} else {
+						GameOverSE.Play();
+					}
+					Effect.Reset();
+					FadeOut = true;
+				}
+				if(Effect.Fadeout() == ContentReturn.END) {
+					Scene.Set("Result");
+					return ContentReturn.CHANGE;
+				}
 				return ContentReturn.OK;
 			}
-			if(!FadeOut) {
-				GameBGM.Close();
-				BossBGM.Close();
-				if(StageCleared) {
-					ClearSE.Play();
-				} else {
-					GameOverSE.Play();
-				}
-				Effect.Reset();
-				FadeOut = true;
-			}
-			if(Effect.Fadeout() == ContentReturn.END) {
-				Scene.Set("Result");
-				return ContentReturn.CHANGE;
-			}
+			Effect.Fadein();
 			return ContentReturn.OK;
 		}
 

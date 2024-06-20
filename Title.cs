@@ -69,35 +69,35 @@ namespace LEContents {
 			Texture.SetFont("Meiryo");
 			Texture.SetTextSize(20);
 			Texture.SetTextColor(255, 255, 255);
-			HelpTextS = Texture.CreateFromText("ステージを選択してください");
-			HelpTextC = Texture.CreateFromText("370");
+			HelpTextS = Texture.CreateFromText("Select stage");
+			HelpTextC = Texture.CreateFromText("Select \"Dango\"");
 			MainMenu = new Menu("Meiryo", 26, 255, 255, 255, 255);
-			MainMenu.Add("だんごうちほうだい");
-			MainMenu.Add("さくらのうちかた講座");
-			MainMenu.Add("オンラインランキング");
-			MainMenu.Add("設定");
-			MainMenu.Add("手動アップデート確認");
-			MainMenu.Add("終了");
+			MainMenu.Add("The STG");
+			MainMenu.Add("How to play");
+			MainMenu.Add("Online Ranking");
+			MainMenu.Add("Settings");
+			MainMenu.Add("Manually update check");
+			MainMenu.Add("End Game");
 			GameMenu = new Menu("Meiryo", 26, 255, 255, 255, 255);
-			GameMenu.Add("一期一会のだんごたち R");
-			GameMenu.Add("だんごの内乱 R");
-			GameMenu.Add("焼きすぎだんご R");
-			GameMenu.Add("だんご速射砲 R");
-			GameMenu.Add("もどる");
+			GameMenu.Add("Dango Mix  R");
+			GameMenu.Add("Only 1 Dango R");
+			GameMenu.Add("Dango Burnt R");
+			GameMenu.Add("Dango Cannon R");
+			GameMenu.Add("Back");
 			DiffMenu = new Menu("Meiryo", 26, 255, 255, 255, 255);
 			DiffMenu.Add("EASY");
 			DiffMenu.Add("NORMAL");
 			DiffMenu.Add("HARD");
 			DiffMenu.Add("SPECIAL");
-			DiffMenu.Add("もどる");
+			DiffMenu.Add("Back");
 			CharMenu = new Menu("Meiryo", 26, 255, 255, 255, 255);
-			CharMenu.Add("\u3000さくら");
-			CharMenu.Add("\u3000みずき");
-			CharMenu.Add("\u3000ささこ");
-			CharMenu.Add("\u3000もちみ");
-			CharMenu.Add("\u3000ごまお");
-			CharMenu.Add("\u3000こげた");
-			CharMenu.Add("もどる");
+			CharMenu.Add("  Sakura (Normal)");
+			CharMenu.Add("  Mizuki (Water)");
+			CharMenu.Add("  Sasako (Bamboo leaf)");
+			CharMenu.Add("  Mochimi (Mochi)");
+			CharMenu.Add("  Gomao (Sesame)");
+			CharMenu.Add("  Kogeta (Burnt)");
+			CharMenu.Add("Back");
 			FramesCount = 0;
 			Effect.Reset();
 			GameCommon.CheckNetworkStatus();
@@ -183,8 +183,9 @@ namespace LEContents {
 			Core.Draw(VersionText, 10, 10);
 			Core.Draw(NetStatText, 10, 35);
 			Core.Draw(ICStatIcon, 79, 35);
+			ContentReturn contentReturn = ContentReturn.OK;
 			if(Mode == 0) {
-				ContentReturn contentReturn = MainMenu.Exec(760, 370);
+				contentReturn = MainMenu.Exec(760, 370);
 				if(contentReturn == ContentReturn.CHANGE) {
 					FramesCount = 0;
 				}
@@ -220,8 +221,9 @@ namespace LEContents {
 			}
 			if(Mode == 1) {
 				Core.Draw(HelpTextS, 700, 650);
-				ContentReturn contentReturn2 = GameMenu.Exec(760, 370);
-				if(contentReturn2 == ContentReturn.END) {
+				contentReturn = GameMenu.Exec(760, 370);
+				int num = 4;
+				if(contentReturn == ContentReturn.END) {
 					Effect.Reset();
 					NowFadeOut = true;
 					Mode = 2;
@@ -265,8 +267,9 @@ namespace LEContents {
 			}
 			if(Mode == 2) {
 				Core.Draw(HelpTextS, 700, 650);
-				ContentReturn contentReturn3 = DiffMenu.Exec(760, 370);
-				if(contentReturn3 == ContentReturn.END) {
+				contentReturn = DiffMenu.Exec(760, 370);
+				int num2 = 4;
+				if(contentReturn == ContentReturn.END) {
 					Effect.Reset();
 					NowFadeOut = true;
 					Mode = 3;
@@ -311,8 +314,8 @@ namespace LEContents {
 			if(Mode == 3) {
 				Core.Draw(DNG[DNGn], 950, 400);
 				Core.Draw(HelpTextC, 700, 650);
-				ContentReturn contentReturn4 = CharMenu.Exec(760, 370);
-				if(contentReturn4 == ContentReturn.CHANGE) {
+				contentReturn = CharMenu.Exec(760, 370);
+				if(contentReturn == ContentReturn.CHANGE) {
 					switch(CharMenu.Selected) {
 						case 1:
 							DNGn = 1;
@@ -337,7 +340,7 @@ namespace LEContents {
 							break;
 					}
 				}
-				if(contentReturn4 == ContentReturn.END) {
+				if(contentReturn == ContentReturn.END) {
 					Effect.Reset();
 					NowFadeOut = true;
 					switch(CharMenu.Selected) {

@@ -61,14 +61,14 @@ namespace LEContents {
 					Texture.SetFont("Meiryo");
 					Texture.SetTextSize(32);
 					Texture.SetTextColor(255, 255, 255);
-					MenuTitleText = Texture.CreateFromText("オンライン ランキング");
+					MenuTitleText = Texture.CreateFromText("Online Ranking");
 					RankMenu = new Menu("Meiryo", 18, 255, 255, 255, 255);
 					RankMenu.SetPointer("DangoMenu.png");
 					RankMenu.SetSE("Menu.wav", "DNGOut.wav");
 					for(int i = 1; i < MenuStr.Length; i++) {
 						RankMenu.Add(MenuStr[i]);
 					}
-					RankMenu.Add("もどる");
+					RankMenu.Add("Back");
 				} else {
 					Error = true;
 				}
@@ -79,7 +79,7 @@ namespace LEContents {
 						Texture.SetFont("Meiryo");
 						Texture.SetTextSize(24);
 						Texture.SetTextColor(255, 255, 255);
-						HelpText = Texture.CreateFromText("データの取得に失敗しました。\nキャンセルボタンで前の画面に戻ります");
+						HelpText = Texture.CreateFromText("Failed to download data. Press CANCEL button to back.");
 						BG = Texture.CreateFromFile("ConfigBG.png");
 					}
 					Core.Draw(BG, 0, 0);

@@ -6,39 +6,39 @@ using Lightness.Resources;
 
 namespace LEContents {
 	public static class GameCommon {
-		public static DNGST.DangoID DNGST_SelectedDangoID = DNGST.DangoID.Pink;
+		public static DNGST.DangoID DNGST_SelectedDangoID;
 
-		public static DNGST.GameMode DNGST_GameMode = DNGST.GameMode.RANDOM_ALL;
+		public static DNGST.GameMode DNGST_GameMode;
 
-		public static DNGST.DiffLv DNGST_DiffLv = DNGST.DiffLv.EASY;
+		public static DNGST.DiffLv DNGST_DiffLv;
 
-		public static VersionInfo Version = new VersionInfo("DNGST:J:A:D:20230815001", "だんごうちほうだい ～まもれ！だんごの里～");
+		public static VersionInfo Version = new VersionInfo("DNGST:E:A:D:20230815001", "DANGO: The STG");
 
-		public static bool NetworkStatus = false;
+		public static bool NetworkStatus;
 
-		public static bool UpdateAvailable = false;
+		public static bool UpdateAvailable;
 
-		public static bool UpdateFailed = false;
+		public static bool UpdateFailed;
 
-		public static string[] DNetMarker = null;
+		public static string[] DNetMarker;
 
-		public static string[] DNetCInfo = null;
+		public static string[] DNetCInfo;
 
-		public static string[] DNetNewVer = null;
+		public static string[] DNetNewVer;
 
-		public static string NewVerURL = "";
+		public static string NewVerURL;
 
-		public static Texture TDNetCInfo = Texture.CreateFromText(" ");
+		public static Texture TDNetCInfo;
 
-		public static Texture DNErrMsg = Texture.CreateFromText(" ");
+		public static Texture DNErrMsg;
 
-		public static Texture DNNewVer = Texture.CreateFromText(" ");
+		public static Texture DNNewVer;
 
-		public static Texture DNUpFail = Texture.CreateFromText(" ");
+		public static Texture DNUpFail;
 
-		public static bool InitDNE = false;
+		public static bool InitDNE;
 
-		public static int DCIPos = 0;
+		public static int DCIPos;
 
 		public static ContentReturn CheckNetworkStatus() {
 			try {
@@ -70,24 +70,12 @@ namespace LEContents {
 								if(dNet2.Status > 350) {
 									return ContentReturn.END;
 								}
-								DNetNewVer = dNet2.GetStrings();
+								DNetNewVer = dNet.GetStrings();
 							}
 						}
 					}
 					NewVerURL = DNetNewVer[1];
-					int num = 0;
-					int num2 = 0;
-					int num3 = 0;
-					int num4 = 1;
-					try {
-						num = int.Parse(Version.DATE);
-						num3 = int.Parse(Version.CNT);
-						VersionInfo versionInfo = new VersionInfo(DNetNewVer[0]);
-						num2 = int.Parse(versionInfo.DATE);
-						num4 = int.Parse(versionInfo.CNT);
-					} catch {
-					}
-					if(num < num2 || (num == num2 && num3 < num4)) {
+					if(Version.Get() != DNetNewVer[0]) {
 						Debug.Log('I', "DNetwork", "New Version is detected: {0}", DNetNewVer[0]);
 						UpdateAvailable = true;
 					} else {
@@ -135,6 +123,26 @@ namespace LEContents {
 			} catch {
 			}
 			return ContentReturn.OK;
+		}
+
+		static GameCommon() {
+			DNGST_SelectedDangoID = DNGST.DangoID.Pink;
+			DNGST_GameMode = DNGST.GameMode.RANDOM_ALL;
+			DNGST_DiffLv = DNGST.DiffLv.EASY;
+			Version = new VersionInfo("DNGST:E:A:C:20191231001", "DANGO: The STG");
+			NetworkStatus = false;
+			UpdateAvailable = false;
+			UpdateFailed = false;
+			DNetMarker = null;
+			DNetCInfo = null;
+			DNetNewVer = null;
+			NewVerURL = "";
+			TDNetCInfo = Texture.CreateFromText(" ");
+			DNErrMsg = Texture.CreateFromText(" ");
+			DNNewVer = Texture.CreateFromText(" ");
+			DNUpFail = Texture.CreateFromText(" ");
+			InitDNE = false;
+			DCIPos = 0;
 		}
 	}
 }
