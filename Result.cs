@@ -88,7 +88,7 @@ namespace LEContents {
 				}
 			} catch {
 			}
-			string uRL = string.Format("http://DNGST.network.dark-x.net/Ranking/Register?Version={0}&dNetworkKey={10}&Stage={1}&Type={2}&Score={3}&Clear={4}&Life={5}&SP={6}&TotalScore={7}&Dango={8}&UserName={9}", GameCommon.Version.Get(), DNGST.StageId, DNGST.Diff, DNGST.Score, DNGST.StageCleared, DNGST.Life, DNGST.SP, TotalScore, GameCommon.DNGST_SelectedDangoID, text, text2);
+			string uRL = string.Format("http://DNGST.network.xprj.net/Ranking/Register?Version={0}&dNetworkKey={10}&Stage={1}&Type={2}&Score={3}&Clear={4}&Life={5}&SP={6}&TotalScore={7}&Dango={8}&UserName={9}", GameCommon.Version.Get(), DNGST.StageId, DNGST.Diff, DNGST.Score, DNGST.StageCleared, DNGST.Life, DNGST.SP, TotalScore, GameCommon.DNGST_SelectedDangoID, text, text2);
 			if(text == "") {
 				Config_PlayerName.ReturnToResult = true;
 			}

@@ -208,7 +208,7 @@ namespace LEContents {
 							Scene.Set("Config");
 							break;
 						case 4:
-							Process.Start("http://project.dark-x.net/game/DNGST");
+							Process.Start("http://project.xprj.net/game/DNGST");
 							Menu.Disabled = false;
 							Environment.Exit(0);
 							break;
