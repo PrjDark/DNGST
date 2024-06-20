@@ -43,14 +43,14 @@ namespace LEContents {
 			Texture.SetFont("Consolas");
 			Texture.SetTextSize(32);
 			Texture.SetTextColor(255, 255, 255);
-			MenuTitleText = Texture.CreateFromText("さくらのうちかた講座\u3000\u3000");
+			MenuTitleText = Texture.CreateFromText("How to play");
 			MainMenu = new Menu("Meiryo", 26, 255, 255, 255, 255);
 			MainMenu.SetPointer("DangoMenu.png");
 			MainMenu.SetSE("Menu.wav", "DNGOut.wav");
-			MainMenu.Add("PCでの操作");
-			MainMenu.Add("アーケードでの操作");
-			MainMenu.Add("コントローラでの操作");
-			MainMenu.Add("もどる");
+			MainMenu.Add("Keyboard");
+			MainMenu.Add("Arcade");
+			MainMenu.Add("Controller");
+			MainMenu.Add("Back");
 			ShowDetail = false;
 			HelpInit = false;
 			HelpImage = "";
@@ -94,12 +94,13 @@ namespace LEContents {
 				Texture.SetFont("Meiryo");
 				Texture.SetTextSize(24);
 				Texture.SetTextColor(255, 255, 255);
-				HelpHelpTex = Texture.CreateFromText("クリック または 決定ボタン で前の画面へ戻ります");
+				HelpHelpTex = Texture.CreateFromText("L Click / DECIDE button: Back");
 				HelpInit = true;
 				Counter = 0;
 			} else {
 				Core.Draw(HelpImageTex, 0, 0);
 				int counter = Counter;
+				int num = 30;
 				Counter++;
 				if(Counter > 60) {
 					Counter = 0;
